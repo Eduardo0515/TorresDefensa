@@ -84,7 +84,7 @@ public class EnemigoScript : MonoBehaviour
     }
 
     private void Comer() {
-        this.animator.SetTrigger(animatorComerTrigger);
+        this.animator.SetTrigger(animatorMuerteTrigger);
         Destroy(this);
     }
 
