@@ -7,95 +7,116 @@ public class EnemigoScript : MonoBehaviour
     [Tooltip("Vida del panda")]
     public float vida;
     public float velocidad;
+    //Se agrego
+    public int pastelComido;
 
     private Animator animator;
+//agregue 28 de enero
+    private Rigidbody2D rb2d ;
 
-    private Rigidbody2D rb2d;
-
-    //Hash representando los nombres los trigger del animator del panda
+//Hash representando los nombre los trigger del animator del panda
+    //private int animatorMuerteTrigger= Animator.StringToHash("MorirTrigger");
+    //private int animatorComerTrigger= Animator.StringToHash("ComerTrigger");
+    //private int animatorGolpeTrigger= Animator.StringToHash("GolpearTrigger");
     private int animatorMuerteTrigger = Animator.StringToHash("MuereTg");
     private int animatorComerTrigger = Animator.StringToHash("AtacaTg");
     private int animatorGolpeTrigger = Animator.StringToHash("GolpeadoTg");
-    
-    //Variable compartida por todos los pandas
+
+    //agregue 28 de enero es para GameManeger
+    //es una variable compartida por todos los pandas
     private static GameManager gameManager;
     //waypoint actual al que se dirige el panda
     private int currentWayPointNumber;
-    //Umbral a partir del cual se considera que se alcanzó el waypoint
-    private const float waypointThreshold = 0.001f;
-    // Start is called before the first frame update
+    //umbral a partir del cual se considera que se alcanzo el waypoint
+    private const float waypointThreshold= 0.001f;
+
+
+
     void Start()
     {
         //agregue 28 de enero
-        if (gameManager == null)
-        {
-            gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null){
+            gameManager= FindObjectOfType<GameManager>();
         }
-        animator = GetComponent<Animator>();
+
+        animator= GetComponent<Animator>();
         //agregue 28 de enero
-        rb2d = GetComponent<Rigidbody2D>();
+        rb2d= GetComponent<Rigidbody2D>();
+
+        
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {
+    {  
         //agregue 28 de enero
         //comprobar si el panda llego al waypoint final (pastel)
         //si el panda llego, se activa la animacion comer y el elimar script del panda
-        if (currentWayPointNumber == gameManager.waypoints.Length)
-        {
+        if(currentWayPointNumber == gameManager.waypoints.Length){
             Comer();
+            // Se agrego
+            //gameManager.ComerPastel(pastelComido);
             return;
         }
         //si el panda no esta en el waypoint final, hay que calcular
         //hay que calcular la distancia que existe entr el panda y 
         //el waypoint que se dirige
-        float distance = Vector2.Distance(this.transform.position, gameManager.waypoints[currentWayPointNumber]);
+        float distance= Vector2.Distance(this.transform.position,gameManager.waypoints[currentWayPointNumber]);
         // si panda esta cerca del waypoint. ir al waypoint
-        if (distance <= waypointThreshold)
-        {
+        if(distance <= waypointThreshold){
             currentWayPointNumber++;
         }
-        else
-        {
+        else {
             MoveToward(gameManager.waypoints[currentWayPointNumber]);
 
         }
 
     }
-
-    private void MoveToward(Vector3 destino) { 
-        //espacio = velocidad * tiempo
-        float espacio = velocidad * Time.deltaTime;
-        //this.transform.position = Vector3.MoveTowards(this.transform.position, destino, espacio);
+    private void MoveToward(Vector3 destino){
+         //espacio= velocidad * tiempo
+        float espacio= velocidad * Time.fixedDeltaTime;
+        //this.transform.position= Vector3.MoveTowards(this.transform.position, destino, espacio);
+     
         //agregue 28 de enero
-        rb2d.MovePosition(Vector3.MoveTowards(this.transform.position, destino, espacio));
-    }
+        rb2d.MovePosition(Vector3.MoveTowards(this.transform.position, destino,espacio));
+     }
 
-    private void Golpe(float herida) {
-        this.vida -= vida;
-        if (this.vida > 0)
-        {
-            this.animator.SetTrigger(animatorGolpeTrigger);
-        }
-        else {
-            this.animator.SetTrigger(animatorMuerteTrigger);
-        }
-    }
-
-    private void Comer() {
-        this.animator.SetTrigger(animatorMuerteTrigger);
+    private bool estaMuerto= false;
+     private void Golpe(float herida)
+     {
+         if(!estaMuerto){
+         this.vida -= herida;
+         
+         if(this.vida >0)
+         {
+             this.animator.SetTrigger(animatorGolpeTrigger);
+         }
+         else
+         {
+             this.animator.SetTrigger(animatorMuerteTrigger);
+             // se agrego
+             //se suma al medidor de azucar
+             estaMuerto=true;
+             velocidad=-1;
+             gameManager.PandaDerrotado();
+         }
+         }
+     }          
+     private void Comer(){
+         this.animator.SetTrigger(animatorMuerteTrigger);
+        //se agrego
+        gameManager.ComerPastel(pastelComido);
+        //agregue 28 de enero
         Destroy(this);
-    }
+     }   
 
-    //agregue 28 de enero
-    void OnTriggerEnter2D(Collider2D otroCollider)
-    {
-        if (otroCollider.tag == "Proyectiles")
-        {
-            Golpe(otroCollider.GetComponent<proyectilScript>().herida);
+    // agregue 28 de enero
+     void OnTriggerEnter2D(Collider2D otroCollider){
+         if(otroCollider.tag == "Proyectil"){
+             Golpe(otroCollider.GetComponent<proyectilScript>().herida);
 
-        }
+         }
 
-    }
+     }
+   
 }

@@ -55,12 +55,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BarraVidaScript.cs" />
      <Compile Include="Assets\Scripts\Comportamientos\ComportamientoEstadoMorir.cs" />
      <Compile Include="Assets\Scripts\EnemigoScript.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\MainMenuScript.cs" />
+     <Compile Include="Assets\Scripts\MedidorAzucarScript.cs" />
+     <Compile Include="Assets\Scripts\NegocioTorreComprar.cs" />
+     <Compile Include="Assets\Scripts\NegocioTorreMejora.cs" />
+     <Compile Include="Assets\Scripts\NegocioTorreScript.cs" />
+     <Compile Include="Assets\Scripts\NegocioTorreVenta.cs" />
+     <Compile Include="Assets\Scripts\PonerTorre.cs" />
+     <Compile Include="Assets\Scripts\TorreScript.cs" />
+     <Compile Include="Assets\Scripts\UI\BarraVidaScript.cs" />
      <Compile Include="Assets\Scripts\proyectilScript.cs" />
-     <Compile Include="Assets\Scripts\torreScript.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

@@ -3,7 +3,10 @@ guid: ef710afe514e0c04085bb32fc918115b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - PantallagameOver: {instanceID: 0}
+  - PantanllaVictoria: {instanceID: 0}
+  - pandaPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

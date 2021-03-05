@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 216820034588999203}
   - component: {fileID: 1625975296150092220}
   - component: {fileID: -4908682843145922585}
-  - component: {fileID: -6425724128596740917}
+  - component: {fileID: 4086996454774037926}
   m_Layer: 0
   m_Name: Troll
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,7 @@ CapsuleCollider2D:
   m_Offset: {x: -1.319792, y: -0.2509557}
   m_Size: {x: 11.20423, y: 10.65267}
   m_Direction: 0
---- !u!114 &-6425724128596740917
+--- !u!114 &4086996454774037926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,3 +155,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 100
   velocidad: 10
+  pastelComido: 50
